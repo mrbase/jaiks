@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Jaiks by mrbase</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Jaiks</h1>
+        <p>jquery ajax request bundler</p>
+
+        <p class="view"><a href="https://github.com/mrbase/jaiks">View the Project on GitHub <small>mrbase/jaiks</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/mrbase/jaiks/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/mrbase/jaiks/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/mrbase/jaiks">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>jaiks.js</h1>
+
+<p><strong>jaiks.js</strong> is a javascript helper class.</p>
+
+<p>The goal is to reduce the number of ajax requests needed to build a page.</p>
+
+<p>This is done by <em>bundeling</em> requests into one request, for a server side handler, which distributes the sub requests, gathers data and returns it to <strong>jaiks.js</strong>.</p>
+
+<p><strong>jaiks.js</strong> will then send the response to callbacks which then processes the response object(s).</p>
+
+<h2>Dependency</h2>
+
+<p><strong>jaiks.js</strong> depends on <a href="http://jquery.com/">jQuery</a> - tested with v1.8.1</p>
+
+<h2>Usage</h2>
+
+<p>See example folder for a code example.</p>
+
+<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/jaiks/jaiks.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+  <span class="nx">jaiks</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span><span class="s1">'url'</span><span class="o">:</span> <span class="s1">'path/to/ajax/server'</span><span class="p">});</span>
+
+  <span class="kd">function</span> <span class="nx">callBack</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">jaiks</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">'some/internal/path'</span><span class="p">,</span> <span class="nx">callBack</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+  <span class="nx">jaiks</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">'some/other/internal/path'</span><span class="p">,</span> <span class="nx">callBack</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+  <span class="nx">jaiks</span><span class="p">.</span><span class="nx">exec</span><span class="p">();</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+<h2>Options</h2>
+
+<div class="highlight"><pre><span class="p">{</span>
+  <span class="s1">'url'</span> <span class="o">:</span> <span class="s1">''</span><span class="p">,</span>            <span class="c1">// url to the ajax server</span>
+  <span class="s1">'async'</span> <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>        <span class="c1">// toggle async mode for the request, default is true</span>
+  <span class="s1">'post_var'</span> <span class="o">:</span> <span class="s1">'payload'</span> <span class="c1">// name of the postvariable that will hold the json formattet request</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2>The server</h2>
+
+<p>The server request for the sample above would look like this (as a POST):</p>
+
+<pre><code>payload=[{"weight":8,"action":"some/other/internal/path"},{"weight":10,"action":"some/internal/path"}]
+</code></pre>
+
+<p><strong>jaiks.js</strong> then expects to get the same data and structure returned as a response (without the payload variable that is).
+You can append any data you wish to the object, but the action property must be intact for <strong>jaiks.js</strong> to know where to send the response for this request.</p>
+
+<p>A response example could be:</p>
+
+<div class="highlight"><pre><span class="p">[{</span><span class="s2">"weight"</span><span class="o">:</span><span class="mi">8</span><span class="p">,</span> <span class="s2">"action"</span><span class="o">:</span><span class="s2">"some/internam/path"</span><span class="p">,</span> <span class="s2">"data"</span><span class="o">:</span> <span class="s2">"some rand() data"</span><span class="p">},</span> <span class="p">...]</span>
+</pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/mrbase">mrbase</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
