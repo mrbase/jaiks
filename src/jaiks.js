@@ -1,5 +1,5 @@
 /*!
- * jaiks.js v1.0.0
+ * jaiks.js v1.1.0
  * (c) 2012 ulrik nielsen
  *
  * A way to bundle ajax requests.
@@ -23,12 +23,13 @@ var jaiks = (function ($) {
 
   var pub = {};
   var call_stack = {};
+  var call_stack_count = 0;
 
   pub.init = function (options) {
     settings = $.extend({}, defaults, options);
   }
 
-  pub.add = function (action, callback, weight) {
+  pub.add = function (action, callback, data, weight) {
     if (0 === settings.length) {
       if (window.console) {
         console.error("jaiks not initialize, use jaiks.init({...});");
@@ -41,11 +42,18 @@ var jaiks = (function ($) {
       weight = 10;
     }
 
+    if (undefined === data) {
+      data = {};
+    }
+
     call_stack[action] = {
       'weight'   : weight,
       'action'   : action,
-      'callback' : callback
+      'callback' : callback,
+      'data'     : data
     };
+
+    call_stack_count++;
   };
 
   pub.exec = function () {
@@ -57,7 +65,7 @@ var jaiks = (function ($) {
       return;
     }
 
-    if (0 === call_stack.length) {
+    if (0 === call_stack_count) {
       return;
     }
 

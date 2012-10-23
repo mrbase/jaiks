@@ -13,6 +13,16 @@ This is done by *bundeling* requests into one request, for a server side handler
 **jaiks.js** depends on [jQuery](http://jquery.com/) - tested with v1.8.1
 
 ## Usage
+
+```javascript
+jaiks.add(String path, String callback, Object post_params, Integer weight);
+```
+where:
+  * `post_params` and `weight` is optional.
+  * `post_params` defaults to an empty object
+  * `weight` defaults to 10
+
+
 See example folder for a code example.
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
@@ -24,8 +34,8 @@ See example folder for a code example.
     console.log(response);
   }
 
-  jaiks.add('some/internal/path', callBack, 10);
-  jaiks.add('some/other/internal/path', callBack, 8);
+  jaiks.add('some/internal/path', callBack, {post_var_1 : 'foo', post_var_2 : 'bar'}, 10);
+  jaiks.add('some/other/internal/path', callBack, {}, 8);
   jaiks.exec();
 </script>
 ```
