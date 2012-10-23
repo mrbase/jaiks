@@ -44,7 +44,19 @@
 
 <h2>Usage</h2>
 
-<p>See example folder for a code example.</p>
+<div class="highlight"><pre><span class="nx">jaiks</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nb">String</span> <span class="nx">path</span><span class="p">,</span> <span class="nb">String</span> <span class="nx">callback</span><span class="p">,</span> <span class="nb">Object</span> <span class="nx">post_params</span><span class="p">,</span> <span class="nx">Integer</span> <span class="nx">weight</span><span class="p">);</span>
+</pre></div>
+
+<p>where:</p>
+
+<ul>
+<li>
+<code>post_params</code> and <code>weight</code> is optional.</li>
+<li>
+<code>post_params</code> defaults to an empty object</li>
+<li>
+<code>weight</code> defaults to 10</li>
+</ul><p>See example folder for a code example.</p>
 
 <div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/jaiks/jaiks.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
@@ -55,8 +67,8 @@
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
   <span class="p">}</span>
 
-  <span class="nx">jaiks</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">'some/internal/path'</span><span class="p">,</span> <span class="nx">callBack</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
-  <span class="nx">jaiks</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">'some/other/internal/path'</span><span class="p">,</span> <span class="nx">callBack</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+  <span class="nx">jaiks</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">'some/internal/path'</span><span class="p">,</span> <span class="nx">callBack</span><span class="p">,</span> <span class="p">{</span><span class="nx">post_var_1</span> <span class="o">:</span> <span class="s1">'foo'</span><span class="p">,</span> <span class="nx">post_var_2</span> <span class="o">:</span> <span class="s1">'bar'</span><span class="p">},</span> <span class="mi">10</span><span class="p">);</span>
+  <span class="nx">jaiks</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">'some/other/internal/path'</span><span class="p">,</span> <span class="nx">callBack</span><span class="p">,</span> <span class="p">{},</span> <span class="mi">8</span><span class="p">);</span>
   <span class="nx">jaiks</span><span class="p">.</span><span class="nx">exec</span><span class="p">();</span>
 <span class="nt">&lt;/script&gt;</span>
 </pre></div>
